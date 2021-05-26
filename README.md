@@ -1,12 +1,20 @@
 # nrsc5
 
-This program receives NRSC-5 digital radio stations using an RTL-SDR dongle. It offers a command-line interface as well as an API upon which other applications can be built. Before using it, you'll first need to compile the program using the build instructions below.
+This program receives NRSC-5 digital radio stations using an SDR device like an SDRplay RSP, any SDR supported by SoapySDR, or an RTL-SDR dongle. It offers a command-line interface as well as an API upon which other applications can be built. Before using it, you'll first need to compile the program using the build instructions below.
 
 ## Building on Ubuntu, Debian or Raspbian
 
     $ sudo apt install git build-essential cmake autoconf libtool libao-dev libfftw3-dev librtlsdr-dev
-    $ git clone https://github.com/theori-io/nrsc5.git
+    $ git clone https://github.com/fventuri/nrsc5.git
     $ cd nrsc5
+
+- SDRplay build:
+  edit the file CMakeLists.txt and change SDR_DRIVER (in line 15) to 'sdrplay'
+- SoapySDR build:
+  edit the file CMakeLists.txt and change SDR_DRIVER (in line 15) to 'soapy'
+- RTL-SDR build:
+  edit the file CMakeLists.txt and change SDR_DRIVER (in line 15) to 'rtlsdr'
+
     $ mkdir build
     $ cd build
     $ cmake [options] ..
@@ -20,6 +28,9 @@ Available build options:
     -DUSE_SSE=ON             Use SSSE3 instructions. [x86, default=OFF]
     -DUSE_FAAD2=ON           AAC decoding with FAAD2. [default=ON]
     -DLIBRARY_DEBUG_LEVEL=1  Debug logging level for libnrsc5. [default=5]
+    -DSDR_DRIVER=rtlsdr      Build nrsc5 for RTL-SDR
+    -DSDR_DRIVER=sdrplay     Build nrsc5 for SDRplay (SDRplay API version 3)
+    -DSDR_DRIVER=soapy       Build nrsc5 for SoapySDR
 
 You can test the program using the included sample capture:
 
@@ -91,12 +102,15 @@ Replace `32` with `64` if you want a 64-bit build. Once the build is complete, c
     -g gain                         gain
                                       (example: 49.6)
                                       (automatic gain selection if not specified)
-    -d device-index                 rtl-sdr device
-    -p ppm-error                    rtl-sdr ppm error
-    -H rtltcp-host                  rtl_tcp host with optional port
+    -d device-index                 RTL-SDR: rtl-sdr device
+                                    SDRplay: RSP serial number
+                                    SoapySDR: SoapySDR device arguments (driver, serial, etc)
+    -p ppm-error                    ppm error
+    -A antenna                      antenna (only SDRplay and SoapySDR)
+    -H rtltcp-host                  rtl_tcp host with optional port (only RTL-SDR)
                                       (example: localhost:1234)
-    -r iq-input                     read IQ samples from input file
-    -w iq-output                    write IQ samples to output file
+    -r iq-input                     read IQ samples from input file (only RTL-SDR)
+    -w iq-output                    write IQ samples to output file (only RTL-SDR)
     -o audio-output                 write audio to output WAV file
     -q                              disable log output
     -l log-level                    set log level
@@ -138,3 +152,8 @@ To quit, press <kbd>Q</kbd>.
 ### RTL-SDR drivers on Windows
 
 If you get errors trying to access your RTL-SDR device, then you may need to use [Zadig](http://zadig.akeo.ie/) to change the USB driver. Once you download and run Zadig, select your RTL-SDR device, ensure the driver is set to WinUSB, and then click "Replace Driver". If your device is not listed, enable "Options" -> "List All Devices".
+
+### Other notes
+
+- This SDRplay and SoapySDR components of this program have only been tested under Linux
+- To use the sdrplay driver with SoapySDR, you need to allow for the specific NRSC5 sampling rate (744187.5 Hz); the version in the master branch of the driver SoapySDRPlay3 does not currently support this sample rate, so you'll need a modified version that you can find here: https://github.com/fventuri/SoapySDRPlay3/tree/nrsc5-sampling-rate (repository: https://github.com/fventuri/SoapySDRPlay3.git - branch: nrsc5-sampling-rate)

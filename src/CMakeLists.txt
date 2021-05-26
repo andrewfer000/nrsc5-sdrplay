@@ -20,7 +20,7 @@ configure_file (config.h.in config.h)
 include_directories (
     ${FAAD2_INCLUDE_DIRS}
     ${AO_INCLUDE_DIRS}
-    ${RTL_SDR_INCLUDE_DIRS}
+    ${SDR_DRIVER_INCLUDE_DIRS}
     ${FFTW3F_INCLUDE_DIRS}
     "${CMAKE_CURRENT_BINARY_DIR}"
     "${CMAKE_SOURCE_DIR}/include"
@@ -28,7 +28,7 @@ include_directories (
 link_directories (
     ${FAAD2_LIBRARY_DIRS}
     ${AO_LIBRARY_DIRS}
-    ${RTL_SDR_LIBRARY_DIRS}
+    ${SDR_DRIVER_LIBRARY_DIRS}
     ${FFTW3F_LIBRARY_DIRS}
     ${LIBUSB_LIBRARY_DIRS}
 )
@@ -40,9 +40,9 @@ add_library (
     frame.c
     input.c
     nrsc5.c
+    nrsc5-${SDR_DRIVER}.c
     output.c
     pids.c
-    rtltcp.c
     sync.c
 
     firdecim_q15.c
@@ -56,6 +56,8 @@ add_library (
     unicode.c
 
     strndup.c
+
+    ${SDR_DRIVER_EXTRA_SOURCES}
 )
 set_property(TARGET nrsc5_object PROPERTY POSITION_INDEPENDENT_CODE ON)
 if (BUILTIN_LIBRARIES)
@@ -66,7 +68,7 @@ set (
     LibraryDependencies
     ${FAAD2_LIBRARIES}
     ${FFTW3F_LIBRARIES}
-    ${RTL_SDR_LIBRARIES}
+    ${SDR_DRIVER_LIBRARIES}
     ${THREAD_LIBRARY}
     ${SOCKET_LIBRARY}
     m
@@ -95,6 +97,7 @@ target_link_libraries (
 add_executable (
     app
     main.c
+    main-${SDR_DRIVER}.c
 )
 set_property (TARGET app PROPERTY OUTPUT_NAME nrsc5)
 set_target_properties(app PROPERTIES LINK_FLAGS "${STATIC_LINKER_FLAGS}")

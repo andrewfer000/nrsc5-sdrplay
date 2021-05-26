@@ -266,22 +266,45 @@ typedef struct nrsc5_t nrsc5_t;
 void nrsc5_get_version(const char **version);
 void nrsc5_service_data_type_name(unsigned int type, const char **name);
 void nrsc5_program_type_name(unsigned int type, const char **name);
+#ifdef USE_RTLSDR
 int nrsc5_open(nrsc5_t **, int device_index);
+#elif defined USE_SDRPLAY
+int nrsc5_open(nrsc5_t **, char *device_serial, char *antenna);
+#elif defined USE_SOAPY
+int nrsc5_open(nrsc5_t **, char *device_args);
+#endif
+#ifdef USE_RTLSDR
 int nrsc5_open_file(nrsc5_t **, FILE *fp);
+#endif
 int nrsc5_open_pipe(nrsc5_t **);
+#ifdef USE_RTLSDR
 int nrsc5_open_rtltcp(nrsc5_t **, int socket);
+#endif
 void nrsc5_close(nrsc5_t *);
 void nrsc5_start(nrsc5_t *);
 void nrsc5_stop(nrsc5_t *);
 int nrsc5_set_mode(nrsc5_t *, int mode);
+#ifdef USE_RTLSDR
 int nrsc5_set_bias_tee(nrsc5_t *, int on);
 int nrsc5_set_direct_sampling(nrsc5_t *, int on);
+#elif defined USE_SDRPLAY
+int nrsc5_set_antenna(nrsc5_t *, char *antenna);
+#elif defined USE_SOAPY
+int nrsc5_set_antenna(nrsc5_t *, char *antenna);
+#endif
 int nrsc5_set_freq_correction(nrsc5_t *, int ppm_error);
 void nrsc5_get_frequency(nrsc5_t *, float *freq);
 int nrsc5_set_frequency(nrsc5_t *, float freq);
+#if defined USE_RTLSDR || defined USE_SDRPLAY
 void nrsc5_get_gain(nrsc5_t *, float *gain);
 int nrsc5_set_gain(nrsc5_t *, float gain);
+#elif defined USE_SOAPY
+void nrsc5_get_gain(nrsc5_t *, char **gain_settings);
+int nrsc5_set_gain(nrsc5_t *, char *gain_settings);
+#endif
+#ifdef USE_RTLSDR
 void nrsc5_set_auto_gain(nrsc5_t *, int enabled);
+#endif
 void nrsc5_set_callback(nrsc5_t *, nrsc5_callback_t callback, void *opaque);
 int nrsc5_pipe_samples_cu8(nrsc5_t *, uint8_t *samples, unsigned int length);
 int nrsc5_pipe_samples_cs16(nrsc5_t *, int16_t *samples, unsigned int length);
