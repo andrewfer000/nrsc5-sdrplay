@@ -36,7 +36,7 @@ Available build options:
     -DSDR_DRIVER=sdrplay     Build nrsc5 for SDRplay (SDRplay API version 3)
     -DSDR_DRIVER=soapy       Build nrsc5 for SoapySDR
 
-You can test the program using the included sample capture:
+You can test the program using the included sample capture (only RTL-SDR version):
 
     $ xz -d < ../support/sample.xz | src/nrsc5 -r - 0
 
