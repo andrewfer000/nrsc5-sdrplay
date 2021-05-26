@@ -103,9 +103,11 @@ Replace `32` with `64` if you want a 64-bit build. Once the build is complete, c
                                       (do not provide frequency when reading from file)
     program                         audio program to decode
                                       (0, 1, 2, or 3)
-    -g gain                         gain
-                                      (example: 49.6)
-                                      (automatic gain selection if not specified)
+    -g gain                         RTL-SDR: gain
+                                               (example: 49.6)
+                                               (automatic gain selection if not specified)
+                                    SDRplay: LNAstate.IFGR (IFGR=0 -> AGC enabled)
+                                    SoapySDR: GainName1=GainValue1,... (AGC=1 to enable AGC)
     -d device-index                 RTL-SDR: rtl-sdr device
                                     SDRplay: RSP serial number
                                     SoapySDR: SoapySDR device arguments (driver, serial, etc)
