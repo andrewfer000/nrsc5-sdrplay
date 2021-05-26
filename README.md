@@ -8,12 +8,13 @@ This program receives NRSC-5 digital radio stations using an SDR device like an 
     $ git clone https://github.com/fventuri/nrsc5.git
     $ cd nrsc5
 
-- SDRplay build:
+- SDRplay build:<br />
   edit the file CMakeLists.txt and change SDR_DRIVER (in line 15) to 'sdrplay'
-- SoapySDR build:
+- SoapySDR build:<br />
   edit the file CMakeLists.txt and change SDR_DRIVER (in line 15) to 'soapy'
-- RTL-SDR build:
+- RTL-SDR build:<br />
   edit the file CMakeLists.txt and change SDR_DRIVER (in line 15) to 'rtlsdr'
+
 
     $ mkdir build
     $ cd build
