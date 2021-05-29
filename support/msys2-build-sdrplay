@@ -7,7 +7,7 @@ pacman -S --needed autoconf automake git gzip make ${MINGW_PACKAGE_PREFIX}-gcc $
 
 cd ~
 if [ ! -d nrsc5 ]; then
-    git clone https://github.com/theori-io/nrsc5
+    git clone https://github.com/fventuri/nrsc5
 else
     cd nrsc5
     git pull
@@ -17,8 +17,7 @@ mkdir -p nrsc5/build
 cd nrsc5/build
 cmake -G "MSYS Makefiles" \
     -D USE_STATIC=ON \
-    -D USE_SYSTEM_LIBUSB=OFF \
-    -D USE_SYSTEM_RTLSDR=OFF \
+    -D SDR_DRIVER=sdrplay \
     -D USE_SYSTEM_LIBAO=OFF \
     -D USE_SYSTEM_FFTW=OFF \
     -D USE_SSE=ON \

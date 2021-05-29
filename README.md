@@ -48,7 +48,7 @@ Follow the Ubuntu instructions above, but replace the first command with the fol
 
 ## Building on macOS using [Homebrew](https://brew.sh)
 
-    $ curl https://raw.githubusercontent.com/theori-io/nrsc5/master/nrsc5.rb > /tmp/nrsc5
+    $ curl https://raw.githubusercontent.com/fventuri/nrsc5/master/nrsc5.rb > /tmp/nrsc5
     $ brew install --HEAD -s /tmp/nrsc5
 
 ## Building for Windows
@@ -65,8 +65,11 @@ If this is the first time running pacman, you will be told to close the terminal
 
     $ pacman -Su
     $ pacman -S git
-    $ git clone https://github.com/theori-io/nrsc5.git
-    $ nrsc5/support/msys2-build
+    $ git clone https://github.com/fventuri/nrsc5.git
+
+<SDR_DRIVER> below is one of: rtlsdr, sdrplay, or soapy
+
+    $ nrsc5/support/msys2-build-<SDR_DRIVER>
 
 You can test your installation using the included sample file:
 
