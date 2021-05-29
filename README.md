@@ -69,7 +69,7 @@ If this is the first time running pacman, you will be told to close the terminal
 
 <SDR_DRIVER> below is one of: rtlsdr, sdrplay, or soapy
 
-    $ nrsc5/support/msys2-build-<SDR_DRIVER>
+    $ nrsc5/support/msys2-build <SDR_DRIVER>
 
 You can test your installation using the included sample file:
 
