@@ -1,10 +1,18 @@
 name: CI
 
-on: [push, pull_request]
+#on: [push, pull_request]
+on:
+  workflow_dispatch:
+    inputs:
+      sdr_driver:
+        description: 'SDR driver (rtlsdr, sdrplay, soapy)'
+        required: true
+        default: 'rtlsdr'
 
 jobs:
-  ubuntu-build:
-    name: Ubuntu CI
+  ubuntu-build-rtlsdr:
+    name: Ubuntu CI RTL-SDR
+    if github.event.inputs.sdr_driver == 'rtlsdr'
     strategy:
       matrix:
         os: [ubuntu-18.04, ubuntu-20.04]
@@ -42,8 +50,9 @@ jobs:
           sudo apt-get install -y mingw-w64
           support/win-cross-compile 32 rtlsdr
           support/win-cross-compile 64 rtlsdr
-  macos-build:
-    name: MacOS CI
+  macos-build-rtlsdr:
+    name: MacOS CI RTL-SDR
+    if github.event.inputs.sdr_driver == 'rtlsdr'
     runs-on: macos-10.15
     steps:
       - name: Install dependencies
@@ -79,3 +88,36 @@ jobs:
           brew install mingw-w64
           support/win-cross-compile 32 rtlsdr
           support/win-cross-compile 64 rtlsdr
+
+  ubuntu-build-sdrplay:
+    name: Ubuntu CI SDRplay API 3.X
+    if github.event.inputs.sdr_driver == 'sdrplay'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get update -qq && sudo apt-get install -y libao-dev libfftw3-dev python3-pyaudio
+      - name: Install SDRplay API 3.X
+        run: |
+          curl -s -S -O https://www.sdrplay.com/software/SDRplay_RSP_API-Linux-3.07.1.run
+          echo "PATH: $PATH"
+          #sh SDRplay_RSP_API-Linux-3.07.1.run
+      #- name: Checkout code
+      #  uses: actions/checkout@v2
+      #- name: Configure
+      #  run: |
+      #    mkdir build
+      #    cd build
+      #    cmake ..
+      #- name: Compile
+      #  working-directory: build
+      #  run: make -j3
+      #- name: Install
+      #  working-directory: build
+      #  run: |
+      #    sudo make install
+      #    sudo ldconfig
+      #- name: Windows cross-compile
+      #  run: |
+      #    sudo apt-get install -y mingw-w64
+      #    support/win-cross-compile 32 sdrplay
+      #    support/win-cross-compile 64 sdrplay
