@@ -5,16 +5,15 @@ set -e
 pacman -Su
 pacman -S --needed autoconf automake git gzip make ${MINGW_PACKAGE_PREFIX}-gcc ${MINGW_PACKAGE_PREFIX}-cmake ${MINGW_PACKAGE_PREFIX}-libtool patch tar xz
 
-cd ~
 if [ ! -d nrsc5 ]; then
     git clone https://github.com/fventuri/nrsc5
+    cd nrsc5
 else
     cd nrsc5
     git pull
-    cd ~
 fi
-mkdir -p nrsc5/build
-cd nrsc5/build
+mkdir build
+cd build
 SDR_DRIVER="$1"; shift
 case "$SDR_DRIVER" in
     rtlsdr)
