@@ -40,8 +40,8 @@ jobs:
       - name: Windows cross-compile
         run: |
           sudo apt-get install -y mingw-w64
-          support/win-cross-compile 32
-          support/win-cross-compile 64
+          support/win-cross-compile 32 rtlsdr
+          support/win-cross-compile 64 rtlsdr
   macos-build:
     name: MacOS CI
     runs-on: macos-10.15
@@ -77,5 +77,5 @@ jobs:
         run: |
           brew cask install xquartz wine-stable
           brew install mingw-w64
-          support/win-cross-compile 32
-          support/win-cross-compile 64
+          support/win-cross-compile 32 rtlsdr
+          support/win-cross-compile 64 rtlsdr

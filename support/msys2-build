@@ -15,25 +15,30 @@ else
 fi
 mkdir -p nrsc5/build
 cd nrsc5/build
-if [ $# -eq 0 -o "$1" = "rtlsdr" ]; then
-    cmake -G "MSYS Makefiles" \
-        -D USE_STATIC=ON \
-        -D USE_SYSTEM_LIBUSB=OFF \
-        -D USE_SYSTEM_RTLSDR=OFF \
-        -D USE_SYSTEM_LIBAO=OFF \
-        -D USE_SYSTEM_FFTW=OFF \
-        -D USE_SSE=ON \
-        -D CMAKE_INSTALL_PREFIX=${MINGW_PREFIX} \
-        ..
-else
-    cmake -G "MSYS Makefiles" \
-        -D USE_STATIC=ON \
-        -D SDR_DRIVER="$1" \
-        -D USE_SYSTEM_LIBAO=OFF \
-        -D USE_SYSTEM_FFTW=OFF \
-        -D USE_SSE=ON \
-        -D CMAKE_INSTALL_PREFIX=${MINGW_PREFIX} \
-        ..
-fi
+SDR_DRIVER="$1"; shift
+case "$SDR_DRIVER" in
+    rtlsdr)
+        cmake -G "MSYS Makefiles" \
+            -D USE_STATIC=ON \
+            -D SDR_DRIVER="$SDR_DRIVER" \
+            -D USE_SYSTEM_LIBUSB=OFF \
+            -D USE_SYSTEM_RTLSDR=OFF \
+            -D USE_SYSTEM_LIBAO=OFF \
+            -D USE_SYSTEM_FFTW=OFF \
+            -D USE_SSE=ON \
+            -D CMAKE_INSTALL_PREFIX=${MINGW_PREFIX} \
+            ..
+        ;;
+    *)
+        cmake -G "MSYS Makefiles" \
+            -D USE_STATIC=ON \
+            -D SDR_DRIVER="$SDR_DRIVER" \
+            -D USE_SYSTEM_LIBAO=OFF \
+            -D USE_SYSTEM_FFTW=OFF \
+            -D USE_SSE=ON \
+            -D CMAKE_INSTALL_PREFIX=${MINGW_PREFIX} \
+            ..
+        ;;
+esac
 make $*
 make install
