@@ -100,22 +100,21 @@ jobs:
         run: |
           curl -s -S -O https://www.sdrplay.com/software/SDRplay_RSP_API-Linux-3.07.1.run
           sudo sh -c '{ echo; echo y; } | MORE=-V sh SDRplay_RSP_API-Linux-3.07.1.run'
-          #sh SDRplay_RSP_API-Linux-3.07.1.run
-      #- name: Checkout code
-      #  uses: actions/checkout@v2
-      #- name: Configure
-      #  run: |
-      #    mkdir build
-      #    cd build
-      #    cmake ..
-      #- name: Compile
-      #  working-directory: build
-      #  run: make -j3
-      #- name: Install
-      #  working-directory: build
-      #  run: |
-      #    sudo make install
-      #    sudo ldconfig
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Configure
+        run: |
+          mkdir build
+          cd build
+          cmake -DSDR_DRIVER="sdrplay" ..
+      - name: Compile
+        working-directory: build
+        run: make -j3
+      - name: Install
+        working-directory: build
+        run: |
+          sudo make install
+          sudo ldconfig
       #- name: Windows cross-compile
       #  run: |
       #    sudo apt-get install -y mingw-w64
