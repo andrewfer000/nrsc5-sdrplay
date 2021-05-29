@@ -99,7 +99,7 @@ jobs:
       - name: Install SDRplay API 3.X
         run: |
           curl -s -S -O https://www.sdrplay.com/software/SDRplay_RSP_API-Linux-3.07.1.run
-          sudo sh -c '{ echo; echo y; } | MORE=-V sh SDRplay_RSP_API-Linux-3.07.1.run'
+          sudo sh -c '{ echo; echo y; echo n; } | MORE=-V sh SDRplay_RSP_API-Linux-3.07.1.run'
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Configure
