@@ -12,7 +12,7 @@ on:
 jobs:
   ubuntu-build-rtlsdr:
     name: Ubuntu CI RTL-SDR
-    if github.event.inputs.sdr_driver == 'rtlsdr'
+    if: github.event.inputs.sdr_driver == 'rtlsdr'
     strategy:
       matrix:
         os: [ubuntu-18.04, ubuntu-20.04]
@@ -52,7 +52,7 @@ jobs:
           support/win-cross-compile 64 rtlsdr
   macos-build-rtlsdr:
     name: MacOS CI RTL-SDR
-    if github.event.inputs.sdr_driver == 'rtlsdr'
+    if: github.event.inputs.sdr_driver == 'rtlsdr'
     runs-on: macos-10.15
     steps:
       - name: Install dependencies
@@ -91,7 +91,7 @@ jobs:
 
   ubuntu-build-sdrplay:
     name: Ubuntu CI SDRplay API 3.X
-    if github.event.inputs.sdr_driver == 'sdrplay'
+    if: github.event.inputs.sdr_driver == 'sdrplay'
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
