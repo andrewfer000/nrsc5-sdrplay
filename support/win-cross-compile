@@ -27,7 +27,7 @@ case "$SDR_DRIVER" in
             -D CMAKE_INSTALL_PREFIX=${prefix} \
             -D USE_SSE=ON \
             -D USE_STATIC=ON \
-            -D USE_SDR_DRIVER="$SDR_DRIVER" \
+            -D SDR_DRIVER="$SDR_DRIVER" \
             -D USE_SYSTEM_LIBUSB=OFF \
             -D USE_SYSTEM_RTLSDR=OFF \
             -D USE_SYSTEM_LIBAO=OFF \
@@ -41,7 +41,7 @@ case "$SDR_DRIVER" in
             -D CMAKE_INSTALL_PREFIX=${prefix} \
             -D USE_SSE=ON \
             -D USE_STATIC=ON \
-            -D USE_SDR_DRIVER="$SDR_DRIVER" \
+            -D SDR_DRIVER="$SDR_DRIVER" \
             -D USE_SYSTEM_LIBAO=OFF \
             -D USE_SYSTEM_FFTW=OFF \
             ..
