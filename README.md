@@ -59,7 +59,7 @@ If this is the first time running pacman, you will be told to close the terminal
     $ pacman -S git
     $ git clone https://github.com/fventuri/nrsc5.git
 
-<SDR_DRIVER> below is one of: rtlsdr, sdrplay, or soapy
+Note: <SDR_DRIVER> below is one of: rtlsdr, sdrplay, or soapy
 
     $ nrsc5/support/msys2-build <SDR_DRIVER>
 
@@ -78,15 +78,17 @@ Once everything is built, you can run nrsc5 independently of MSYS2. Copy the fol
 
 ### Cross-compiling for Windows from Ubuntu / Debian
 
+Note: <SDR_DRIVER> below is one of: rtlsdr, sdrplay, or soapy
+
     $ sudo apt install mingw-w64
-    $ support/win-cross-compile 32
+    $ support/win-cross-compile 32 <SDR_DRIVER>
 
 Replace `32` with `64` if you want a 64-bit build. Once the build is complete, copy `*.dll` and `nrsc5.exe` from the `build-win32/bin` (or `build-win64/bin`) folder to your Windows machine.
 
 ### Cross-compiling for Windows from macOS
 
     $ brew install mingw-w64
-    $ support/win-cross-compile 32
+    $ support/win-cross-compile 32 <SDR_DRIVER>
 
 Replace `32` with `64` if you want a 64-bit build. Once the build is complete, copy `*.dll` and `nrsc5.exe` from the `build-win32/bin` (or `build-win64/bin`) folder to your Windows machine.
 

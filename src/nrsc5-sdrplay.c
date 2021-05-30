@@ -224,6 +224,21 @@ NRSC5_API void nrsc5_start(nrsc5_t *st)
     callbacks.StreamBCbFn = 0;
     callbacks.EventCbFn = event_callback;
 
+/* fv - debug info */
+if (st->dev.hwVer == SDRPLAY_RSP2_ID) {
+    fprintf(stderr, "antenna: %d\n", st->ch_params->rsp2TunerParams.antennaSel);
+    fprintf(stderr, "AM port: %d\n", st->ch_params->rsp2TunerParams.amPortSel);
+} else if (st->dev.hwVer == SDRPLAY_RSPduo_ID) {
+    fprintf(stderr, "tuner: %d\n", st->dev.tuner);
+    fprintf(stderr, "AM port: %d\n", st->ch_params->rspDuoTunerParams.tuner1AmPortSel);
+} else if (st->dev.hwVer == SDRPLAY_RSPdx_ID) {
+    fprintf(stderr, "antenna: %d\n", st->dev_params->devParams->rspDxParams.antennaSel);
+}
+fprintf(stderr, "LNA state: %d\n", st->ch_params->tunerParams.gain.LNAstate);
+fprintf(stderr, "IF gain reduction: %d\n", st->ch_params->tunerParams.gain.gRdB);
+fprintf(stderr, "IF AGC: %d\n", st->ch_params->ctrlParams.agc.enable);
+/* fv - end debug info */
+
     sdrplay_api_ErrT err;
     if ((err = sdrplay_api_Init(st->dev.dev, &callbacks, (void *)st)) != sdrplay_api_Success) {
         log_error("sdrplay_api_Init failed");
@@ -357,8 +372,8 @@ NRSC5_API int nrsc5_set_gain(nrsc5_t *st, float gain)
         int ifgr = (int) ((gain - rfgr) * 100.0f + 0.00001);
         st->ch_params->tunerParams.gain.LNAstate = (unsigned char) rfgr;
         if (ifgr == 0) {
-            st->ch_params->ctrlParams.agc.setPoint_dBfs = -30;
-            st->ch_params->ctrlParams.agc.enable = sdrplay_api_AGC_CTRL_EN;
+            st->ch_params->ctrlParams.agc.setPoint_dBfs = -60;
+            st->ch_params->ctrlParams.agc.enable = sdrplay_api_AGC_50HZ;
         } else {
             st->ch_params->ctrlParams.agc.enable = sdrplay_api_AGC_DISABLE;
             st->ch_params->tunerParams.gain.gRdB = ifgr;
