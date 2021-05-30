@@ -144,7 +144,8 @@ jobs:
           cmake -DSDR_DRIVER="sdrplay" ..
       - name: Compile
         working-directory: build
-        run: make -j3
+        #run: make -j3
+        run: make VERBOSE=1
       - name: Install
         working-directory: build
         run: make install
