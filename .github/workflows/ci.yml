@@ -133,8 +133,8 @@ jobs:
       - name: Install SDRplay API 3.X
         run: |
           curl -s -S -O https://www.sdrplay.com/software/SDRplay_RSP_API-MacOSX-3.07.3.pkg
-          sudo installer -pkg SDRplay_RSP_API-MacOSX-3.07.3.pkg -target /
-          ls /Applications
+          sudo installer -verbose -pkg SDRplay_RSP_API-MacOSX-3.07.3.pkg -target /
+          find /usr/local
       #- name: Checkout code
       #  uses: actions/checkout@v2
       #- name: Configure
