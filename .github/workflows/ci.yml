@@ -133,21 +133,21 @@ jobs:
       - name: Install SDRplay API 3.X
         run: |
           curl -s -S -O https://www.sdrplay.com/software/SDRplay_RSP_API-MacOSX-3.07.3.pkg
-          sudo installer -verbose -pkg SDRplay_RSP_API-MacOSX-3.07.3.pkg -target /
-          find /usr/local | grep -i sdrplay
-      #- name: Checkout code
-      #  uses: actions/checkout@v2
-      #- name: Configure
-      #  run: |
-      #    mkdir build
-      #    cd build
-      #    cmake -DSDR_DRIVER="sdrplay" ..
-      #- name: Compile
-      #  working-directory: build
-      #  run: make -j3
-      #- name: Install
-      #  working-directory: build
-      #  run: make install
+          sudo installer -pkg SDRplay_RSP_API-MacOSX-3.07.3.pkg -target /
+          #find /usr/local 2> /dev/null | grep -i sdrplay
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Configure
+        run: |
+          mkdir build
+          cd build
+          cmake -DSDR_DRIVER="sdrplay" ..
+      - name: Compile
+        working-directory: build
+        run: make -j3
+      - name: Install
+        working-directory: build
+        run: make install
       #- name: Windows cross-compile
       #  run: |
       #    brew cask install xquartz wine-stable
