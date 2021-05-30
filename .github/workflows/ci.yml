@@ -91,7 +91,8 @@ jobs:
 
   ubuntu-build-sdrplay:
     name: Ubuntu CI SDRplay API 3.X
-    if: github.event.inputs.sdr_driver == 'sdrplay'
+    #if: github.event.inputs.sdr_driver == 'sdrplay'
+    if: github.event.inputs.sdr_driver == 'DISABLED'
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
@@ -118,5 +119,37 @@ jobs:
       #- name: Windows cross-compile
       #  run: |
       #    sudo apt-get install -y mingw-w64
+      #    support/win-cross-compile 32 sdrplay
+      #    support/win-cross-compile 64 sdrplay
+  macos-build-sdrplay:
+    name: MacOS CI SDRplay API 3.X
+    if: github.event.inputs.sdr_driver == 'sdrplay'
+    runs-on: macos-10.15
+    steps:
+      - name: Install dependencies
+        run: |
+          brew install autoconf automake libao fftw portaudio
+          pip3 install pyaudio
+      - name: Install SDRplay API 3.X
+        run: |
+          curl -s -S -O https://www.sdrplay.com/software/SDRplay_RSP_API-MacOSX-3.07.3.pkg
+          sudo installer -pkg SDRplay_RSP_API-MacOSX-3.07.3.pkg -target /
+      #- name: Checkout code
+      #  uses: actions/checkout@v2
+      #- name: Configure
+      #  run: |
+      #    mkdir build
+      #    cd build
+      #    cmake -DSDR_DRIVER="sdrplay" ..
+      #- name: Compile
+      #  working-directory: build
+      #  run: make -j3
+      #- name: Install
+      #  working-directory: build
+      #  run: make install
+      #- name: Windows cross-compile
+      #  run: |
+      #    brew cask install xquartz wine-stable
+      #    brew install mingw-w64
       #    support/win-cross-compile 32 sdrplay
       #    support/win-cross-compile 64 sdrplay

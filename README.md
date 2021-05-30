@@ -5,23 +5,14 @@ This program receives NRSC-5 digital radio stations using an SDR device like an 
 ## Building on Ubuntu, Debian or Raspbian
 
 Prerequisites and git repository clone:
+<SDR_DRIVER> below is one of: rtlsdr, sdrplay, or soapy
 
     $ sudo apt install git build-essential cmake autoconf libtool libao-dev libfftw3-dev librtlsdr-dev
     $ git clone https://github.com/fventuri/nrsc5.git
     $ cd nrsc5
-
-- SDRplay build:<br />
-  edit the file CMakeLists.txt and change SDR_DRIVER (in line 15) to 'sdrplay'
-- SoapySDR build:<br />
-  edit the file CMakeLists.txt and change SDR_DRIVER (in line 15) to 'soapy'
-- RTL-SDR build:<br />
-  edit the file CMakeLists.txt and change SDR_DRIVER (in line 15) to 'rtlsdr'
-
-Build:
-
     $ mkdir build
     $ cd build
-    $ cmake [options] ..
+    $ cmake -DSDR_DRIVER=<SDR_DRIVER> [options] ..
     $ make
     $ sudo make install
     $ sudo ldconfig
