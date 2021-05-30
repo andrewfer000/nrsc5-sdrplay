@@ -134,6 +134,7 @@ jobs:
         run: |
           curl -s -S -O https://www.sdrplay.com/software/SDRplay_RSP_API-MacOSX-3.07.3.pkg
           sudo installer -pkg SDRplay_RSP_API-MacOSX-3.07.3.pkg -target /
+          ls /Applications
       #- name: Checkout code
       #  uses: actions/checkout@v2
       #- name: Configure
