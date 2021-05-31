@@ -103,7 +103,7 @@ jobs:
           SDRPLAY_API_FILE_LINUX: SDRplay_RSP_API-Linux-3.07.1.run
         run: |
           curl -s -S -O "$SDRPLAY_SOFTWARE_DOWNLOADS/$SDRPLAY_API_FILE_LINUX"
-          sudo sh -c "{ echo; echo y; echo n; } | MORE=-V sh $SDRPLAY_API_FILE_LINUX"
+          sudo sh -c "{ echo; echo y; echo n; } | MORE=-V sh \"$SDRPLAY_API_FILE_LINUX\""
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Configure
@@ -125,9 +125,6 @@ jobs:
         run: |
           sudo apt-get install -y mingw-w64 innoextract
           curl -s -S -O "$SDRPLAY_SOFTWARE_DOWNLOADS/$SDRPLAY_API_FILE_WINDOWS"
-          pwd
-          id
-          echo $HOME
           innoextract "$SDRPLAY_API_FILE_WINDOWS" -d "$HOME/SDRplay"
           #support/win-cross-compile 32 sdrplay
           #support/win-cross-compile 64 sdrplay
