@@ -22,6 +22,12 @@ env:
   SDRPLAY_SOFTWARE_DOWNLOADS: 'https://www.sdrplay.com/software'
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Debug
+        run: echo ${{ github.event.inputs.sdr_driver }}
+
   ubuntu-build-rtlsdr:
     name: Ubuntu CI RTL-SDR
     if: github.event.inputs.sdr_driver == 'rtlsdr'
