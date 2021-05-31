@@ -167,7 +167,7 @@ jobs:
         working-directory: build
         run: |
           make -j3
-          cp build/src/nrsc5 nrsc5-macos
+          cp src/nrsc5 ../nrsc5-macos
       #- name: Install
       #  working-directory: build
       #  run: make install
