@@ -103,7 +103,7 @@ jobs:
           SDRPLAY_API_FILE_LINUX: SDRplay_RSP_API-Linux-3.07.1.run
         run: |
           curl -s -S -O "$SDRPLAY_SOFTWARE_DOWNLOADS/$SDRPLAY_API_FILE_LINUX"
-          sudo sh -c '{ echo; echo y; echo n; } | MORE=-V sh "$SDRPLAY_API_FILE_LINUX"'
+          sudo sh -c "{ echo; echo y; echo n; } | MORE=-V sh $SDRPLAY_API_FILE_LINUX"
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Configure
