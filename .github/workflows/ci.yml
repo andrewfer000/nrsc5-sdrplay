@@ -12,22 +12,11 @@ on:
     tags:
       - 'v*.*.*'
       - 'v*.*'
-    inputs:
-      sdr_driver:
-        description: 'SDR driver (rtlsdr, sdrplay, soapy)'
-        required: true
-        default: 'sdrplay'
 
 env:
   SDRPLAY_SOFTWARE_DOWNLOADS: 'https://www.sdrplay.com/software'
 
 jobs:
-  debug:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Debug
-        run: echo ${{ github.event.inputs.sdr_driver }}
-
   ubuntu-build-rtlsdr:
     name: Ubuntu CI RTL-SDR
     if: github.event.inputs.sdr_driver == 'rtlsdr'
@@ -109,7 +98,7 @@ jobs:
 
   ubuntu-build-sdrplay:
     name: Ubuntu CI SDRplay API 3.X
-    if: github.event.inputs.sdr_driver == 'sdrplay'
+    if: ${{ github.event.inputs.sdr_driver == 'sdrplay' || startsWith(github.ref, 'refs/tags/') }
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
@@ -159,7 +148,7 @@ jobs:
 
   macos-build-sdrplay:
     name: MacOS CI SDRplay API 3.X
-    if: github.event.inputs.sdr_driver == 'sdrplay'
+    if: ${{ github.event.inputs.sdr_driver == 'sdrplay' || startsWith(github.ref, 'refs/tags/') }
     runs-on: macos-10.15
     steps:
       - name: Install dependencies
