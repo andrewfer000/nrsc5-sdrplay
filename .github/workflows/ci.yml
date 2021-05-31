@@ -8,6 +8,8 @@ on:
         description: 'SDR driver (rtlsdr, sdrplay, soapy)'
         required: true
         default: 'rtlsdr'
+env:
+  SDRPLAY_SOFTWARE_DOWNLOADS: 'https://www.sdrplay.com/software'
 
 jobs:
   ubuntu-build-rtlsdr:
@@ -97,9 +99,11 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update -qq && sudo apt-get install -y libao-dev libfftw3-dev python3-pyaudio
       - name: Install SDRplay API 3.X
+        env:
+          SDRPLAY_API_FILE_LINUX: SDRplay_RSP_API-Linux-3.07.1.run
         run: |
-          curl -s -S -O https://www.sdrplay.com/software/SDRplay_RSP_API-Linux-3.07.1.run
-          sudo sh -c '{ echo; echo y; echo n; } | MORE=-V sh SDRplay_RSP_API-Linux-3.07.1.run'
+          curl -s -S -O "$SDRPLAY_SOFTWARE_DOWNLOADS/$SDRPLAY_API_FILE_LINUX"
+          sudo sh -c '{ echo; echo y; echo n; } | MORE=-V sh "$SDRPLAY_API_FILE_LINUX"'
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Configure
@@ -115,11 +119,18 @@ jobs:
         run: |
           sudo make install
           sudo ldconfig
-      #- name: Windows cross-compile
-      #  run: |
-      #    sudo apt-get install -y mingw-w64
-      #    support/win-cross-compile 32 sdrplay
-      #    support/win-cross-compile 64 sdrplay
+      - name: Windows cross-compile
+        env:
+          SDRPLAY_API_FILE_WINDOWS: SDRplay_RSP_API-Windows-3.07.2.exe
+        run: |
+          sudo apt-get install -y mingw-w64 innoextract
+          curl -s -S -O "$SDRPLAY_SOFTWARE_DOWNLOADS/$SDRPLAY_API_FILE_WINDOWS"
+          pwd
+          id
+          echo $HOME
+          innoextract "$SDRPLAY_API_FILE_WINDOWS" -d "$HOME/SDRplay"
+          #support/win-cross-compile 32 sdrplay
+          #support/win-cross-compile 64 sdrplay
   macos-build-sdrplay:
     name: MacOS CI SDRplay API 3.X
     #if: github.event.inputs.sdr_driver == 'sdrplay'
@@ -131,10 +142,11 @@ jobs:
           brew install autoconf automake libao fftw portaudio
           pip3 install pyaudio
       - name: Install SDRplay API 3.X
+        env:
+          SDRPLAY_API_FILE_MACOS: SDRplay_RSP_API-MacOSX-3.07.3.pkg
         run: |
-          curl -s -S -O https://www.sdrplay.com/software/SDRplay_RSP_API-MacOSX-3.07.3.pkg
-          sudo installer -pkg SDRplay_RSP_API-MacOSX-3.07.3.pkg -target /
-          #find /usr/local 2> /dev/null | grep -i sdrplay
+          curl -s -S -O "$SDRPLAY_SOFTWARE_DOWNLOADS/$SDRPLAY_API_FILE_MACOS"
+          sudo installer -pkg "$SDRPLAY_API_FILE_MACOS" -target /
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Configure
