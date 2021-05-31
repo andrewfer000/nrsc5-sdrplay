@@ -122,12 +122,14 @@ jobs:
       - name: Windows cross-compile
         env:
           SDRPLAY_API_FILE_WINDOWS: SDRplay_RSP_API-Windows-3.07.2.exe
+          SDRPLAY_API_BASE_DIR: ${{ runner.workspace }}/SDRplay
+          SDRPLAY_API_DIR: ${{ env.SDRPLAY_API_BASE_DIR }}/app/API
         run: |
           sudo apt-get install -y mingw-w64 innoextract
           curl -s -S -O "$SDRPLAY_SOFTWARE_DOWNLOADS/$SDRPLAY_API_FILE_WINDOWS"
-          innoextract "$SDRPLAY_API_FILE_WINDOWS" -d "$HOME/SDRplay"
-          #support/win-cross-compile 32 sdrplay
-          #support/win-cross-compile 64 sdrplay
+          innoextract "$SDRPLAY_API_FILE_WINDOWS" -I app/API -d "$SDRPLAY_API_BASE_DIR"
+          support/win-cross-compile 32 sdrplay
+          support/win-cross-compile 64 sdrplay
   macos-build-sdrplay:
     name: MacOS CI SDRplay API 3.X
     #if: github.event.inputs.sdr_driver == 'sdrplay'

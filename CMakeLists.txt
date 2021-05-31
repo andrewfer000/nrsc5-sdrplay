@@ -78,15 +78,12 @@ if (SDR_DRIVER STREQUAL sdrplay)
             message (FATAL_ERROR "libsdrplay_api v3 not found.")
         endif ()
     elseif (WIN32)
-        if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Windows")
+        if (DEFINED ENV{SDRPLAY_API_DIR})
+            # cross-compile: get SDRPLAY_API_DIR from the env variables
+            set (SDRPLAY_API_DIR "$ENV{SDRPLAY_API_DIR}")
+        else()
             # Native Windows build
             get_filename_component (SDRPLAY_API_DIR "[HKEY_LOCAL_MACHINE\\SOFTWARE\\SDRplay\\Service\\API;Install_Dir]" ABSOLUTE)
-        elseif (CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
-            # Linux cross compile for Windows
-            message (STATUS "Linux cross compile for Windows")
-        elseif (CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
-            # MacOS cross compile for Windows
-            message (STATUS "MacOS cross compile for Windows")
         endif()
         if (CMAKE_SIZEOF_VOID_P EQUAL 8)
             message (STATUS "64 bit compiler detected")
