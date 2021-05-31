@@ -79,13 +79,11 @@ message (STATUS "+++ UNIX")
             message (FATAL_ERROR "libsdrplay_api v3 not found.")
         endif ()
     elseif (WIN32)
-message (STATUS "+++ WIN32")
-        if (DEFINED ENV{SDRPLAY_API_DIR})
-message (STATUS "+++ cross-compile - ENV VAR")
-            # cross-compile: get SDRPLAY_API_DIR from the env variables
-            set (SDRPLAY_API_DIR "$ENV{SDRPLAY_API_DIR}")
+        if (DEFINED ENV{SDRPLAY_API_BASE_DIR})
+            # cross-compile: get SDRPLAY_API_BASE_DIR from the env variables
+            set (SDRPLAY_API_DIR "$ENV{SDRPLAY_API_BASE_DIR}/app/API")
+message (STATUS "+++ cross-compile - SDRPLAY_API_DIR=${SDRPLAY_API_DIR}")
         else()
-message (STATUS "+++ native Windows - registry")
             # Native Windows build
             get_filename_component (SDRPLAY_API_DIR "[HKEY_LOCAL_MACHINE\\SOFTWARE\\SDRplay\\Service\\API;Install_Dir]" ABSOLUTE)
         endif()
