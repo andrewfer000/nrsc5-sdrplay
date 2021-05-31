@@ -71,7 +71,6 @@ if (SDR_DRIVER STREQUAL rtlsdr AND USE_SYSTEM_LIBUSB)
 endif ()
 if (SDR_DRIVER STREQUAL sdrplay)
     if (UNIX)
-message (STATUS "+++ UNIX")
         find_library (SDR_DRIVER_LIBRARIES libsdrplay_api.so.3)
         get_filename_component (SDR_DRIVER_LIBRARY_DIRS "${SDR_DRIVER_LIBRARIES}" DIRECTORY)
         find_path (SDR_DRIVER_INCLUDE_DIRS sdrplay_api.h)
@@ -82,7 +81,6 @@ message (STATUS "+++ UNIX")
         if (DEFINED ENV{SDRPLAY_API_BASE_DIR})
             # cross-compile: get SDRPLAY_API_BASE_DIR from the env variables
             set (SDRPLAY_API_DIR "$ENV{SDRPLAY_API_BASE_DIR}/app/API")
-message (STATUS "+++ cross-compile - SDRPLAY_API_DIR=${SDRPLAY_API_DIR}")
         else()
             # Native Windows build
             get_filename_component (SDRPLAY_API_DIR "[HKEY_LOCAL_MACHINE\\SOFTWARE\\SDRplay\\Service\\API;Install_Dir]" ABSOLUTE)
@@ -101,7 +99,6 @@ message (STATUS "+++ cross-compile - SDRPLAY_API_DIR=${SDRPLAY_API_DIR}")
         if (NOT SDR_DRIVER_INCLUDE_DIRS)
             message (FATAL_ERROR "sdrplay_api.h not found.")
         endif ()
-message (STATUS "+++ SDRplay API lib path: ${SDRPLAY_API_DIR}/${EX_PLATFORM_NAME}")
         find_library(SDR_DRIVER_LIBRARIES NAMES sdrplay_api.lib
             PATHS
             "${SDRPLAY_API_DIR}/${EX_PLATFORM_NAME}"

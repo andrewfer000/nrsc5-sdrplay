@@ -129,10 +129,18 @@ jobs:
           innoextract "$SDRPLAY_API_FILE_WINDOWS" -I app/API -d "$SDRPLAY_API_BASE_DIR"
           support/win-cross-compile 32 sdrplay
           support/win-cross-compile 64 sdrplay
+      - name: Windows upload artifact with 32 and 64 bit executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: nrsc5-sdrplay
+          path: |
+            build-win32/bin/nrsc5.exe
+            build-win64/bin/nrsc5.exe
+          retention-days: 3
+
   macos-build-sdrplay:
     name: MacOS CI SDRplay API 3.X
-    #if: github.event.inputs.sdr_driver == 'sdrplay'
-    if: github.event.inputs.sdr_driver == 'DISABLED'
+    if: github.event.inputs.sdr_driver == 'sdrplay'
     runs-on: macos-10.15
     steps:
       - name: Install dependencies
@@ -158,6 +166,13 @@ jobs:
       - name: Install
         working-directory: build
         run: make install
+      - name: MacOS upload artifact with executable
+        uses: actions/upload-artifact@v2
+        with:
+          name: nrsc5-sdrplay
+          path: |
+            build/src/nrsc5
+          retention-days: 3
       #- name: Windows cross-compile
       #  run: |
       #    brew cask install xquartz wine-stable
