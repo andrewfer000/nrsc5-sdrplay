@@ -7,7 +7,17 @@ on:
       sdr_driver:
         description: 'SDR driver (rtlsdr, sdrplay, soapy)'
         required: true
-        default: 'rtlsdr'
+        default: 'sdrplay'
+  push:
+    tags:
+      - 'v*.*.*'
+      - 'v*.*'
+    inputs:
+      sdr_driver:
+        description: 'SDR driver (rtlsdr, sdrplay, soapy)'
+        required: true
+        default: 'sdrplay'
+
 env:
   SDRPLAY_SOFTWARE_DOWNLOADS: 'https://www.sdrplay.com/software'
 
