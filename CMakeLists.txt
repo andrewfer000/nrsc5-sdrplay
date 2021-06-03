@@ -104,6 +104,8 @@ if (SDR_DRIVER STREQUAL sdrplay)
         if (NOT SDR_DRIVER_INCLUDE_DIRS)
             message (FATAL_ERROR "sdrplay_api.h not found.")
         endif ()
+        message (STATUS "file: sdrplay_api.${SDRPLAY_API_LIBRARY_EXT}")
+        message (STATUS "path: ${SDRPLAY_API_DIR}/${EX_PLATFORM_NAME}")
         find_library(SDR_DRIVER_LIBRARIES NAMES sdrplay_api.${SDRPLAY_API_LIBRARY_EXT}
             PATHS
             "${SDRPLAY_API_DIR}/${EX_PLATFORM_NAME}"
