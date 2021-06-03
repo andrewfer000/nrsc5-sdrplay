@@ -105,7 +105,6 @@ if (SDR_DRIVER STREQUAL sdrplay)
         if (NOT SDR_DRIVER_INCLUDE_DIRS)
             message (FATAL_ERROR "sdrplay_api.h not found.")
         endif ()
-        message (STATUS "CMAKE_FIND_LIBRARY_SUFFIXES: ${CMAKE_FIND_LIBRARY_SUFFIXES}")
         find_library(SDR_DRIVER_LIBRARIES NAMES sdrplay_api.${SDRPLAY_API_LIBRARY_SUFFIX}
             PATHS
             "${SDRPLAY_API_DIR}/${EX_PLATFORM_NAME}"
