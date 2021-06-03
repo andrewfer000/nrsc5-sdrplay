@@ -132,8 +132,6 @@ jobs:
           sudo apt-get install -y mingw-w64 innoextract
           curl -s -S -O "$SDRPLAY_SOFTWARE_DOWNLOADS/$SDRPLAY_API_FILE_WINDOWS"
           innoextract "$SDRPLAY_API_FILE_WINDOWS" -I app/API -d "$SDRPLAY_API_BASE_DIR"
-          echo "SDRPLAY_API_BASE_DIR: $SDRPLAY_API_BASE_DIR"
-          find "$SDRPLAY_API_BASE_DIR"
           support/win-cross-compile 32 sdrplay
           support/win-cross-compile 64 sdrplay
           cp build-win32/bin/nrsc5.exe nrsc5-32.exe

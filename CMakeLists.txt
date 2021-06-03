@@ -84,11 +84,12 @@ if (SDR_DRIVER STREQUAL sdrplay)
             # link against the .dll (*not* the .lib)
             # see this bug in x86_64-w64-mingw32-gcc version 9.3:
             # https://stackoverflow.com/questions/64082149/different-mingw-w64-version-breaks-dll-loading
-            set (SDRPLAY_API_LIBRARY_EXT dll)
+            set (SDRPLAY_API_LIBRARY_SUFFIX dll)
+            list (APPEND CMAKE_FIND_LIBRARY_SUFFIXES ".${SDRPLAY_API_LIBRARY_SUFFIX}")
         else()
             # Native Windows build
             get_filename_component (SDRPLAY_API_DIR "[HKEY_LOCAL_MACHINE\\SOFTWARE\\SDRplay\\Service\\API;Install_Dir]" ABSOLUTE)
-            set (SDRPLAY_API_LIBRARY_EXT lib)
+            set (SDRPLAY_API_LIBRARY_SUFFIX lib)
         endif()
         if (CMAKE_SIZEOF_VOID_P EQUAL 8)
             message (STATUS "64 bit compiler detected")
@@ -104,15 +105,13 @@ if (SDR_DRIVER STREQUAL sdrplay)
         if (NOT SDR_DRIVER_INCLUDE_DIRS)
             message (FATAL_ERROR "sdrplay_api.h not found.")
         endif ()
-        message (STATUS "file: sdrplay_api.${SDRPLAY_API_LIBRARY_EXT}")
-        message (STATUS "path: ${SDRPLAY_API_DIR}/${EX_PLATFORM_NAME}")
         message (STATUS "CMAKE_FIND_LIBRARY_SUFFIXES: ${CMAKE_FIND_LIBRARY_SUFFIXES}")
-        find_library(SDR_DRIVER_LIBRARIES NAMES sdrplay_api.${SDRPLAY_API_LIBRARY_EXT}
+        find_library(SDR_DRIVER_LIBRARIES NAMES sdrplay_api.${SDRPLAY_API_LIBRARY_SUFFIX}
             PATHS
             "${SDRPLAY_API_DIR}/${EX_PLATFORM_NAME}"
         )
         if (NOT SDR_DRIVER_LIBRARIES)
-            message (FATAL_ERROR "sdrplay_api.${SDRPLAY_API_LIBRARY_EXT} not found.")
+            message (FATAL_ERROR "sdrplay_api.${SDRPLAY_API_LIBRARY_SUFFIX} not found.")
         endif ()
     endif ()
 endif ()
