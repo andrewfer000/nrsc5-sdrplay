@@ -130,23 +130,12 @@ jobs:
           SDRPLAY_API_BASE_DIR: ${{ runner.workspace }}/SDRplay
         run: |
           sudo apt-get install -y mingw-w64 innoextract
-          find /usr -name '*pthread*' > pthread.txt || true
           curl -s -S -O "$SDRPLAY_SOFTWARE_DOWNLOADS/$SDRPLAY_API_FILE_WINDOWS"
           innoextract "$SDRPLAY_API_FILE_WINDOWS" -I app/API -d "$SDRPLAY_API_BASE_DIR"
           support/win-cross-compile 32 sdrplay
           support/win-cross-compile 64 sdrplay
           cp build-win32/bin/nrsc5.exe nrsc5-32.exe
           cp build-win64/bin/nrsc5.exe nrsc5-64.exe
-          tar cf - pthread.txt build-win32 build-win64 | gzip --best > debug-pthread.tar.gz
-      - name: Windows upload artifact with 32 and 64 bit executables
-        uses: actions/upload-artifact@v2
-        with:
-          name: nrsc5-sdrplay
-          path: |
-            nrsc5-32.exe
-            nrsc5-64.exe
-            debug-pthread.tar.gz
-          retention-days: 3
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')

@@ -81,9 +81,14 @@ if (SDR_DRIVER STREQUAL sdrplay)
         if (DEFINED ENV{SDRPLAY_API_BASE_DIR})
             # cross-compile: get SDRPLAY_API_BASE_DIR from the env variables
             set (SDRPLAY_API_DIR "$ENV{SDRPLAY_API_BASE_DIR}/app/API")
+            # link against the .dll (*not* the .lib)
+            # see this bug in x86_64-w64-mingw32-gcc version 9.3:
+            # https://stackoverflow.com/questions/64082149/different-mingw-w64-version-breaks-dll-loading
+            set (SDRPLAY_API_LIBRARY_EXT dll)
         else()
             # Native Windows build
             get_filename_component (SDRPLAY_API_DIR "[HKEY_LOCAL_MACHINE\\SOFTWARE\\SDRplay\\Service\\API;Install_Dir]" ABSOLUTE)
+            set (SDRPLAY_API_LIBRARY_EXT lib)
         endif()
         if (CMAKE_SIZEOF_VOID_P EQUAL 8)
             message (STATUS "64 bit compiler detected")
@@ -99,12 +104,12 @@ if (SDR_DRIVER STREQUAL sdrplay)
         if (NOT SDR_DRIVER_INCLUDE_DIRS)
             message (FATAL_ERROR "sdrplay_api.h not found.")
         endif ()
-        find_library(SDR_DRIVER_LIBRARIES NAMES sdrplay_api.lib
+        find_library(SDR_DRIVER_LIBRARIES NAMES sdrplay_api.${SDRPLAY_API_LIBRARY_EXT}
             PATHS
             "${SDRPLAY_API_DIR}/${EX_PLATFORM_NAME}"
         )
         if (NOT SDR_DRIVER_LIBRARIES)
-            message (FATAL_ERROR "sdrplay_api.lib not found.")
+            message (FATAL_ERROR "sdrplay_api.${SDRPLAY_API_LIBRARY_EXT} not found.")
         endif ()
     endif ()
 endif ()
