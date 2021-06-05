@@ -9,7 +9,7 @@ This program receives NRSC-5 digital radio stations using an SDR device like an 
 
 - download and install the SDRPlay API version 3.X (currently 3.07) from here: https://www.sdrplay.com/downloads/
 - download and unzip the latest version of the command line NRSC5 decoder for Windows 32 bit from here: https://github.com/fventuri/nrsc5/releases - to extract the program you have to accept the licenses (GPL3 and FAAD2)
-- copy the 32 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - you should normally find the 32 bit SDRplay API dll under `C:\Program Files\SDRplay\API\x86\sdrplay_api.dll`
+- copy the 32 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - the 32 bit SDRplay API dll is normally under `C:\Program Files\SDRplay\API\x86\sdrplay_api.dll`
 - run the nrsc5 decoder as follows:
 ```
 nrs5-32 89.9 0
@@ -21,7 +21,7 @@ nrs5-32 89.9 0
 
 - download and install the SDRPlay API version 3.X (currently 3.07) from here: https://www.sdrplay.com/downloads/
 - download and unzip the latest version of the command line NRSC5 decoder for Windows 64 bit from here: https://github.com/fventuri/nrsc5/releases - to extract the program you have to accept the licenses (GPL3 and FAAD2)
-- copy the 64 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - you should normally find the 64 bit SDRplay API dll under `C:\Program Files\SDRplay\API\x64\sdrplay_api.dll`
+- copy the 64 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - the 64 bit SDRplay API dll is normally under `C:\Program Files\SDRplay\API\x64\sdrplay_api.dll`
 - run the nrsc5 decoder as follows:
 ```
 nrs5-64 89.9 0
