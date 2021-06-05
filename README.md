@@ -9,11 +9,11 @@ This program receives NRSC-5 digital radio stations using an SDR device like an 
 
 - download and install the SDRPlay API version 3.X (currently 3.07) from here: https://www.sdrplay.com/downloads/
 - download and unzip the latest version of the command line NRSC5 decoder for Windows 32 bit from here: https://github.com/fventuri/nrsc5/releases - to extract the program you have to accept the licenses (GPL3 and FAAD2)
-- copy the 32 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - you should normally find the 32 bit SDRplay API dll under C:\Program Files\SDRplay\API\x86\sdrplay_api.dll
+- copy the 32 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - you should normally find the 32 bit SDRplay API dll under `C:\Program Files\SDRplay\API\x86\sdrplay_api.dll`
 - run the nrsc5 decoder as follows:
-
-    nrs5-32 89.9 0
-
+```
+nrs5-32 89.9 0
+```
 - where the first number is the FM station frequency and second number is the digital channel you want to listen to (more options like antenna and gain selection are fully described below).
 
 
@@ -21,25 +21,26 @@ This program receives NRSC-5 digital radio stations using an SDR device like an 
 
 - download and install the SDRPlay API version 3.X (currently 3.07) from here: https://www.sdrplay.com/downloads/
 - download and unzip the latest version of the command line NRSC5 decoder for Windows 64 bit from here: https://github.com/fventuri/nrsc5/releases - to extract the program you have to accept the licenses (GPL3 and FAAD2)
-- copy the 64 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - you should normally find the 64 bit SDRplay API dll under C:\Program Files\SDRplay\API\x64\sdrplay_api.dll
+- copy the 64 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - you should normally find the 64 bit SDRplay API dll under `C:\Program Files\SDRplay\API\x64\sdrplay_api.dll`
 - run the nrsc5 decoder as follows:
-
-    nrs5-64 89.9 0
-
+```
+nrs5-64 89.9 0
+```
 - where the first number is the FM station frequency and second number is the digital channel you want to listen to (more options like antenna and gain selection are fully described below).
 
 ### MacOS - command line NRSC5 decoder
 
 - install the prerequisites dependencies (libao, fftw, and portaudio) for MacOS. For instance using the 'brew' package manager, the command would be:
-
-    brew install libao fftw portaudio
-
+```
+brew install libao fftw portaudio
+```
 - download and install the SDRPlay API version 3.X (currently 3.07) from here: https://www.sdrplay.com/downloads/
 - download and unzip the latest version of the command line NRSC5 decoder for MacOS from here: https://github.com/fventuri/nrsc5/releases - to extract the program you have to accept the licenses (GPL3 and FAAD2)
 - run the nrsc5 decoder as follows:
 
-    nrs5-macos 89.9 0
-
+```
+nrs5-macos 89.9 0
+```
 - where the first number is the FM station frequency and second number is the digital channel you want to listen to (more options like antenna and gain selection are fully described below).
 
 
