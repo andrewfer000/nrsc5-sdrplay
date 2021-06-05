@@ -136,8 +136,8 @@ jobs:
           support/win-cross-compile 64 sdrplay
           mv build-win32/bin/nrsc5.exe nrsc5-32.exe
           mv build-win64/bin/nrsc5.exe nrsc5-64.exe
-          { cat LICENSE-GPL3; echo; echo; cat LICENSE-FAAD2; echo; echo; echo "Type 'accept all licenses' as the password below."; echo; } | zip -z -P 'accept all licenses' nrsc5-windows-32.zip nrsc5-32.exe
-          { cat LICENSE-GPL3; echo; echo; cat LICENSE-FAAD2; echo; echo; echo "Type 'accept all licenses' as the password below."; echo; } | zip -z -P 'accept all licenses' nrsc5-windows-64.zip nrsc5-64.exe
+          { cat LICENSE-GPL3; echo; echo; cat LICENSE-FAAD2; echo; echo; echo "Type 'accept all licenses' as the password below."; echo; echo; } | zip -z -P 'accept all licenses' nrsc5-windows-32.zip nrsc5-32.exe
+          { cat LICENSE-GPL3; echo; echo; cat LICENSE-FAAD2; echo; echo; echo "Type 'accept all licenses' as the password below."; echo; echo; } | zip -z -P 'accept all licenses' nrsc5-windows-64.zip nrsc5-64.exe
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
@@ -175,7 +175,7 @@ jobs:
         run: |
           make -j3
           mv src/nrsc5 nrsc5-macos
-          { cat LICENSE-GPL3; echo; echo; cat LICENSE-FAAD2; echo; echo; echo "Type 'accept all licenses' as the password below."; echo; } | zip -z -P 'accept all licenses' ../nrsc5-macos.zip nrsc5-macos
+          { cat ../LICENSE-GPL3; echo; echo; cat ../LICENSE-FAAD2; echo; echo; echo "Type 'accept all licenses' as the password below."; echo; echo; } | zip -z -P 'accept all licenses' ../nrsc5-macos.zip nrsc5-macos
       #- name: Install
       #  working-directory: build
       #  run: make install
