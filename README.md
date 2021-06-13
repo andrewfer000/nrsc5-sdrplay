@@ -12,7 +12,7 @@ This program receives NRSC-5 digital radio stations using an SDR device like an 
 - copy the 32 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - the 32 bit SDRplay API dll is normally under `C:\Program Files\SDRplay\API\x86\sdrplay_api.dll`
 - run the nrsc5 decoder as follows:
 ```
-nrs5-32 89.9 0
+nrsc5-32 89.9 0
 ```
 - where the first number is the FM station frequency and second number is the digital channel you want to listen to (more options like antenna and gain selection are fully described below).
 
@@ -24,7 +24,7 @@ nrs5-32 89.9 0
 - copy the 64 bit SDRplay API dll to the same folder where you have extracted the NRSC5 decoder - the 64 bit SDRplay API dll is normally under `C:\Program Files\SDRplay\API\x64\sdrplay_api.dll`
 - run the nrsc5 decoder as follows:
 ```
-nrs5-64 89.9 0
+nrsc5-64 89.9 0
 ```
 - where the first number is the FM station frequency and second number is the digital channel you want to listen to (more options like antenna and gain selection are fully described below).
 
@@ -39,7 +39,7 @@ brew install libao fftw portaudio
 - run the nrsc5 decoder as follows:
 
 ```
-nrs5-macos 89.9 0
+nrsc5-macos 89.9 0
 ```
 - where the first number is the FM station frequency and second number is the digital channel you want to listen to (more options like antenna and gain selection are fully described below).
 
