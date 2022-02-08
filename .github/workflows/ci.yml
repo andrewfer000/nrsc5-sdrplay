@@ -126,7 +126,7 @@ jobs:
           sudo ldconfig
       - name: Windows cross-compile
         env:
-          SDRPLAY_API_FILE_WINDOWS: SDRplay_RSP_API-Windows-3.07.2.exe
+          SDRPLAY_API_FILE_WINDOWS: SDRplay_RSP_API-Windows-3.09.exe
           SDRPLAY_API_BASE_DIR: ${{ runner.workspace }}/SDRplay
         run: |
           sudo apt-get install -y mingw-w64 innoextract
