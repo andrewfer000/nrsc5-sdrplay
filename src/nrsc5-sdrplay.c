@@ -104,8 +104,10 @@ NRSC5_API int nrsc5_open(nrsc5_t **result, char *device_serial, char *antenna)
     sdrplay_api_ErrT err;
     nrsc5_t *st = nrsc5_alloc();
 
-    if ((err = sdrplay_api_Open()) != sdrplay_api_Success)
+    if ((err = sdrplay_api_Open()) != sdrplay_api_Success) {
+        log_error("sdrplay_api_Open() error: %d", err);
         goto error_init;
+    }
 
     unsigned int n_devs = 0;
 
@@ -125,8 +127,10 @@ NRSC5_API int nrsc5_open(nrsc5_t **result, char *device_serial, char *antenna)
             }
         }
     }
-    if (dev_idx >= n_devs)
+    if (dev_idx >= n_devs) {
+        log_error("RSP not found (RSPs: %d)", n_devs);
         goto error_release_api_lock;
+    }
     st->dev = devs[dev_idx];
     if (st->dev.hwVer == SDRPLAY_RSPduo_ID) {
         if (st->dev.rspDuoMode & sdrplay_api_RspDuoMode_Single_Tuner) {
@@ -137,15 +141,20 @@ NRSC5_API int nrsc5_open(nrsc5_t **result, char *device_serial, char *antenna)
                 st->dev.tuner = sdrplay_api_Tuner_A;
             } 
         } else {
+            log_error("RSPduo not in Single Tuner mode");
             goto error_release_api_lock;
         }
     }
 
-    if ((err = sdrplay_api_SelectDevice(&st->dev)) != sdrplay_api_Success)
+    if ((err = sdrplay_api_SelectDevice(&st->dev)) != sdrplay_api_Success) {
+        log_error("sdrplay_api_SelectDevice() error: %d", err);
         goto error_release_api_lock;
+    }
     sdrplay_api_UnlockDeviceApi();
-    if ((err = sdrplay_api_GetDeviceParams(st->dev.dev, &st->dev_params)) != sdrplay_api_Success)
+    if ((err = sdrplay_api_GetDeviceParams(st->dev.dev, &st->dev_params)) != sdrplay_api_Success) {
+        log_error("sdrplay_api_GetDeviceParams() error: %d", err);
         goto error;
+    }
     st->ch_params = st->dev.tuner == sdrplay_api_Tuner_B ? st->dev_params->rxChannelB : st->dev_params->rxChannelA;
 
     /* default settings:
