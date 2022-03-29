@@ -65,7 +65,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew install autoconf automake libao fftw librtlsdr portaudio
-          pip3 install pyaudio
+          pip3 install --global-option=build_ext --global-option="-I/usr/local/include/" --global-option="-L/usr/local/lib" pyaudio
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Configure
@@ -91,7 +91,7 @@ jobs:
           cat sample | support/cli.py -r - 0
       - name: Windows cross-compile
         run: |
-          brew cask install xquartz wine-stable
+          brew install --cask xquartz wine-stable
           brew install mingw-w64
           support/win-cross-compile 32 rtlsdr
           support/win-cross-compile 64 rtlsdr
@@ -156,7 +156,7 @@ jobs:
       - name: Install dependencies
         run: |
           brew install autoconf automake libao fftw portaudio
-          pip3 install pyaudio
+          pip3 install --global-option=build_ext --global-option="-I/usr/local/include/" --global-option="-L/usr/local/lib" pyaudio
       - name: Install SDRplay API 3.X
         env:
           SDRPLAY_API_FILE_MACOS: SDRplay_RSP_API-MacOSX-3.07.3.pkg
@@ -188,7 +188,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #- name: Windows cross-compile
       #  run: |
-      #    brew cask install xquartz wine-stable
+      #    brew install --cask xquartz wine-stable
       #    brew install mingw-w64
       #    support/win-cross-compile 32 sdrplay
       #    support/win-cross-compile 64 sdrplay
