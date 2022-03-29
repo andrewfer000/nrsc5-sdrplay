@@ -105,7 +105,7 @@ static int parse_args(state_t *st, int argc, char *argv[])
     st->mode = NRSC5_MODE_FM;
     st->gain = -1;
     st->bias_tee = 0;
-    st->direct_sampling = 0;
+    st->direct_sampling = -1;
     st->ppm_error = INT_MIN;
 
     while ((opt = getopt_long(argc, argv, "r:w:o:d:p:g:ql:vH:TD:", long_opts, NULL)) != -1)
